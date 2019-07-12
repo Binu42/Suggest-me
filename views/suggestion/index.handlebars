@@ -1,0 +1,18 @@
+<div class="text-center h3 mb-2">Thanks, {{username}}</div>
+{{#each suggestions}}
+<div class="card card-body text-center mb-2">
+    <h4 class="text-info">{{title}}</h4>
+    <p class="">{{{suggestion}}}</p>
+    <div class="container">
+        <a href="/suggestions/edit/{{id}}" class="btn btn-dark mb-2 btn-block"> EDIT </a>
+        <form action="/suggestions/{{id}}?_method=DELETE" method="post">
+            <input type="hidden" name="_method" value="DELETE">
+            <input type="submit" value="DELETE" class="btn btn-danger btn-block">
+        </form>
+    </div>
+</div>
+{{else}}
+<div class="card card-body text-center mb-2">
+    <h3 class="lead">NO Suggestions listed</h3>
+</div>
+{{/each}}
