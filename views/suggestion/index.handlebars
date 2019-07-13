@@ -1,13 +1,14 @@
-<div class="text-center h3 mb-2">Thanks, {{username}}</div>
+<div class="text-center h3 mb-4">Thanks, {{username}}</div>
+<div class="row  justify-content-center">
 {{#each suggestions}}
-<div class="card card-body text-center mb-2">
+<div class="card card-body text-center col-md-8 mb-2 border-custom">
     <h4 class="text-info">{{title}}</h4>
     <p class="">{{{suggestion}}}</p>
-    <div class="container">
-        <a href="/suggestions/edit/{{id}}" class="btn btn-dark mb-2 btn-block"> EDIT </a>
-        <form action="/suggestions/{{id}}?_method=DELETE" method="post">
+    <div class="row btn-group m-auto">
+        <a href="/suggestions/edit/{{id}}" class="btn btn-dark"> EDIT&emsp;</a>
+        <form action="/suggestions/{{id}}?_method=DELETE" method="post" class="btn-group">
             <input type="hidden" name="_method" value="DELETE">
-            <input type="submit" value="DELETE" class="btn btn-danger btn-block">
+            <input type="submit" value="DELETE" class="btn btn-danger" style="width: 100%">
         </form>
     </div>
 </div>
@@ -16,3 +17,4 @@
     <h3 class="lead">NO Suggestions listed</h3>
 </div>
 {{/each}}
+</div>
