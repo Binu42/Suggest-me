@@ -73,3 +73,8 @@ i:hover {
 .fa-github{
   color: #ffffff;
 }
+
+hr{
+  border-top: 1px dashed black;
+  margin: 0.4rem;
+}
