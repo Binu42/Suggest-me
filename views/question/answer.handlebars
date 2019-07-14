@@ -1,0 +1,8 @@
+<h1 class="display-5 text-info text-center">{{title}}</h1>
+{{#each answers}}
+<div class="card card-body border-custom text-center mb-2">
+    <p class="lead">{{suggestion}}</p>
+</div>
+{{else}}
+<div class="card card-body border-danger">No suggestions from users.</div>
+{{/each}}

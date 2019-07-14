@@ -1,5 +1,27 @@
-<div class="jumbotron text-center">
-    <h1 class="display-5">{{title}}</h1>
-    <p class="lead">Note down your Suggestions here for my future Reference</p>
-    <a href="/suggestions/add" class="btn btn-lg btn-success">Add Suggestion</a>
+<div class="card card-body border-custom text-center mb-2">
+    <h1 class="display-5 text-info">{{title}}</h1>
+    <p class="text-dark">Give here your suggestions to questions asked for suggestions. It will be helpful for others.
+    </p>
+    <div class="m-auto">
+        <a href="/question/add" class="btn btn-success" style="width: 200px">Ask for suggestions</a>
+    </div>
+    <p class="lead">Thank You</p>
 </div>
+
+{{#each questions}}
+<div class="row mt-4 text-center mb-4">
+    <div class="col-md-8">
+        <p class="h3">{{question}}</p>
+    </div>
+    <div class="col-md-4">
+        <a href="/suggestions/add/{{id}}" class="btn btn-success">Your Suggestion >></a>
+    </div>
+</div>
+{{else}}
+<div class="card card-body text-center mb-3">
+    <p>No Questions Asked by Others. Feel Free to ask Your Questions.</p>
+    <div class="m-auto">
+        <a href="/question/add" class="btn btn-success" style="width: 200px">Ask for suggestions</a>
+    </div>
+</div>
+{{/each}}

@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-// method-override Middleware
+// method-override Middleware for delete, put, patch
 app.use(methodOverride('_method'));
 
 // To save session as cookies
@@ -38,7 +38,11 @@ app.use(passport.session());
 // Load Routes
 const suggestions = require('./routes/suggestion');
 const users = require('./routes/users');
-const admins = require('./routes/admin');
+const question = require('./routes/question');
+
+// acquiring QuestionSchema
+require('./models/Question');
+const Question = mongoose.model('questions');
 
 // Passport Config
 require('./config/passport')(passport);
@@ -49,7 +53,7 @@ app.use(express.static("public"));
 // To show Flash pop up on edit delete ....
 app.use(flash());
 
-// Global variables for flash
+// Global variables for flash and setting navbar
 app.use(function (req, res, next) {
     res.locals.success_msg = req.flash('success_msg');
     res.locals.error_msg = req.flash('error_msg');
@@ -61,9 +65,33 @@ app.use(function (req, res, next) {
 // To get home route
 app.get('/', function (req, res) {
     const title = "WELCOME"
-    res.render('index', {
-        title: title
-    });
+    if (req.isAuthenticated()) {
+        Question.find({
+                user: {
+                    $ne: req.user._id
+                }
+            })
+            .sort({
+                'date': 'desc'
+            })
+            .then(questions => {
+                res.render('index', {
+                    questions: questions,
+                    title: title
+                })
+            })
+    }else{
+        Question.find()
+        .sort({
+            'date': 'desc'
+        })
+        .then(questions => {
+            res.render('index', {
+                questions: questions,
+                title: title
+            })
+        })
+    }
 });
 
 // To get About Route
@@ -75,7 +103,7 @@ app.get('/about', function (req, res) {
 // using middleware
 app.use('/suggestions', suggestions);
 app.use('/users', users);
-app.use('/admins', admins);
+app.use('/question', question);
 
 // Listening to port
 const port = 3000;

@@ -1,3 +1,4 @@
+// Function to find wheter user is authenticated or not
 module.exports = {
     ensureAuthenticated: function(req, res, next){
         if(req.isAuthenticated()){

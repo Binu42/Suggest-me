@@ -6,17 +6,21 @@ const session = require('express-session');
 
 const router = express.Router();
 
+// acquiring user schema
 require('../models/Users');
 const User = mongoose.model('users');
 
+// route for direct login route
 router.get('/login', (req, res) => {
     res.render('users/login');
 })
 
+// route for directing register route
 router.get('/register', (req, res) => {
     res.render('users/register');
 })
 
+// route for accepting user registration
 router.post('/register', (req, res) => {
     User.findOne({
             email: req.body.email
@@ -52,14 +56,16 @@ router.post('/register', (req, res) => {
         })
 })
 
-router.post('/login', function(req, res, next){
-    passport.authenticate('local',{
-    successRedirect: '/suggestions',
-    failureRedirect: "/users/login",
-    failureFlash: true
-})(req, res, next);
+// route for login of user
+router.post('/login', function (req, res, next) {
+    passport.authenticate('local', {
+        successRedirect: '/',
+        failureRedirect: "/users/login",
+        failureFlash: true
+    })(req, res, next);
 })
 
+// route for logout of user
 router.get('/logout', (req, res) => {
     req.logout();
     req.flash('success_msg', 'You are logged out');
